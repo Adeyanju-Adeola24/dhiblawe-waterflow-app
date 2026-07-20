@@ -1,3 +1,4 @@
+import 'express-async-errors';
 import express from 'express';
 import cors from 'cors';
 import fs from 'fs';
@@ -26,15 +27,12 @@ app.use(helmet({ contentSecurityPolicy: false }));
 app.use(cors({ origin: true, credentials: true }));
 app.use(express.json({ limit: '10mb' }));
 
-const wwwDir = path.join(__dirname, '..', '..');
-app.use(express.static(wwwDir));
-
-const uploadsDir = path.join(__dirname, '..', '..', 'server', 'uploads');
+const uploadsDir = path.join(__dirname, 'uploads');
 if (fs.existsSync(uploadsDir)) {
   app.use('/uploads', express.static(uploadsDir));
 }
 
-const soundsDir = path.join(__dirname, '..', '..', 'server', 'sounds');
+const soundsDir = path.join(__dirname, '..', 'sounds');
 if (fs.existsSync(soundsDir)) {
   app.use('/sounds', express.static(soundsDir));
 }
@@ -57,6 +55,6 @@ app.use(errorHandler);
 
 initDb().then(() => {
   app.listen(PORT, () => {
-    console.log(`Dhiblawe WaterFlow → http://localhost:${PORT}`);
+    console.log(`Dhiblawe WaterFlow API → http://localhost:${PORT}`);
   });
 });
