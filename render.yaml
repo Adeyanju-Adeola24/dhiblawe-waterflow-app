@@ -19,5 +19,4 @@ services:
 
 databases:
   - name: dhiblawe-db
-    plan: free
     region: oregon
